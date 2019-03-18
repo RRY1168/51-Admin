@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+<title>滑动组件</title>
+<style type="text/css">
+	html,body,div,ul,li,img{margin:0;padding:0;}
+	body{overflow:hidden;background-color:#f5f5f5;}
+	li{list-style:none;}
+	.v-slide{width:8rem;height:8rem;margin:2rem auto;position:relative;
+		-webkit-perspective:2000px;perspective:1000px;
+	-webkit-perspective-origin: 50% 150%;perspective-origin:50% 150%;}
+	.v-slide .s{position:absolute;left:0;top:0;overflow:hidden;}
+	.v-slide img{width:100%;pointer-events:none;border-radius:5px;}
+</style>
+<script type="text/javascript" src="js/flexible.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="view">
+	<vue-slide :intimg="lodingImg" :imgs="imgList" :visible="showNum"></vue-slide>
+</div>
+
+<script type="text/javascript">
+
+	var vueSlide = {
+		props: {
+			imgs: Array,
+			intimg: String,
+			visible: Number
+		},
+		data: function (){
+			return {
+				//图片资源
+				basicData: {
+					currentPage: 0,
+					start: {},
+					end: {}
+				},
+				temporaryData: {
+					zIndex: 0,
+					opacity: 1,
+					transWidth: "",
+					transHeight: "",
+					lastTransWidth: "",
+					lastTransHeight: "",
+					tracking: false,
+					animation: true,
+					swipe: false,
+				}
+			}
+		},
+		template: `<ul class="v-slide">
+					<li class="s" v-for="(item,index) in imgs" :style="[transform(index)]"
+					@touchstart.stop.capture="touchstart"
+					@touchmove.stop.capture="touchmove"
+					@touchend.stop.capture="touchend"
+					@mousedown.stop.capture="touchstart"
+					@mouseup.stop.capture="touchend"
+					@mousemove.stop.capture="touchmove"
+					@webkit-transition-end="onTranstionEnd"
+					@transitionend="onTranstionEnd">
+						<img :src="intimg" :alt="index" ref="index" />
+					</li>
+				</ul>`
+		,
+		mounted: function () {
+			this.$nextTick(function () {
+				let i = 0;
+				let canShow = this.temporaryData.visible;
+				let imgs_url = this.imgs;
+				let len = this.imgs.length;
+				let dImg = this.$refs;
+
+				(function f_load_img(n){
+					if(n > len - 1){
+						return;
+					}
+					if (n < canShow) {
+						dImg.index[n].src = imgs_url[n].src;
+						++n;
+					}
+					dImg.index[n].src = imgs_url[n].src;
+					dImg.index[n].onload = function(){
+						f_load_img(++n);
+					}
+					dImg.index[n].onerror = function(){
+						f_load_img(++n);
+					}
+				})(i)
+			})
+		},
+		methods: {
+			touchstart: function (e) {
+				if (this.temporaryData.tracking){
+					return;
+				}
+
+				if (e.type === 'touchstart') {
+
+					if (e.touches.length > 1){
+						this.temporaryData.tracking = false;
+						return;
+					} else {
+						this.basicData.start.x = e.targetTouches[0].clientX;
+						this.basicData.start.y = e.targetTouches[0].clientY;
+						this.basicData.end.x = e.targetTouches[0].clientX;
+						this.basicData.end.y = e.targetTouches[0].clientY;
+					}
+
+				} else {
+					this.basicData.start.x = e.clientX;
+					this.basicData.start.y = e.clientY;
+					this.basicData.end.x = e.clientX;
+					this.basicData.end.y = e.clientY;
+				}
+				this.temporaryData.tracking = true;
+				this.temporaryData.animation = false;
+			},
+			touchmove: function (e) {
+
+				if (this.temporaryData.tracking && !this.temporaryData.animation){
+
+					if (e.type === "touchmove") {
+
+						this.basicData.end.x = e.targetTouches[0].clientX;
+						this.basicData.end.y = e.targetTouches[0].clientY;
+
+					} else {
+						this.basicData.end.x = e.clientX;
+						this.basicData.end.y = e.clientY;
+					}
+
+					this.temporaryData.transWidth = this.basicData.end.x - this.basicData.start.x;
+					this.temporaryData.transHeight = this.basicData.end.y - this.basicData.start.y;
+				}
+			},
+			touchend: function (e) {
+				this.temporaryData.tracking = false;
+				this.temporaryData.animation = true;
+
+				if (Math.abs(this.temporaryData.transWidth) >= 10){
+					let corner = Math.abs(this.temporaryData.transHeight / this.temporaryData.transWidth);
+					this.temporaryData.transWidth = this.temporaryData.transWidth >=0 ? this.temporaryData.transWidth + 400 : this.temporaryData.transWidth - 400;
+					this.temporaryData.transHeight = this.temporaryData.transHeight >=0 ? Math.abs(this.temporaryData.transWidth * corner) : -Math.abs(this.temporaryData.transWidth * corner);
+					this.temporaryData.opacity = 0;
+					this.temporaryData.swipe = true;
+
+					this.temporaryData.lastTransWidth = this.temporaryData.transWidth;
+					this.temporaryData.lastTransHeight = this.temporaryData.transHeight;
+					this.basicData.currentPage += 1;
+					if (this.basicData.currentPage > this.imgs.length - 1) {
+						this.basicData.currentPage = 0;
+						console.log('zuih')
+					}
+					this.$nextTick(function(){
+						this.temporaryData.transWidth = 0;
+						this.temporaryData.transHeight = 0;
+						this.temporaryData.opacity = 1;
+					})
+
+				} else {
+					this.temporaryData.transWidth = 0;
+					this.temporaryData.transHeight = 0;
+					this.temporaryData.swipe = false;
+				}
+			},
+			onTranstionEnd: function (index) {
+				if (this.temporaryData.swipe && index === this.basicData.currentPage - 1) {
+					this.temporaryData.animation = true;
+					this.temporaryData.swipe = false;
+					this.temporaryData.lastTransWidth = 0;
+					this.temporaryData.lastTransHeight = 0;
+				}
+			},
+			//图片展示 transform值
+			transform: function (index) {
+				if (index === this.basicData.currentPage) {
+
+					let transStyle = {};
+
+					transStyle["opacity"] = this.temporaryData.opacity;
+					transStyle["z-index"] = 10;
+					transStyle["transform"] = "translate3D(" + this.temporaryData.transWidth + "px," + this.temporaryData.transHeight + "px,0px)";
+
+					if (this.temporaryData.animation){
+						transStyle['transitionTimingFunction'] = 'ease';
+						transStyle['transitionDuration'] = 300 + 'ms';
+					}
+
+					return transStyle;
+
+				}  else if (index === this.basicData.currentPage - 1) {
+
+					let transStyle = {};
+					transStyle["opacity"] = "0";
+					transStyle["zIndex"] = "-1";
+					transStyle["transform"] = "translate3D(" + this.temporaryData.lastTransWidth + "px" + "," + this.temporaryData.lastTransHeight + "px" + ",0px)";
+					transStyle["transitionTimingFunction"] = "ease";
+					transStyle["transitionDuration"] = 300 + "ms";
+
+					return transStyle
+				} else if (index < this.basicData.currentPage - 1) {
+					let transStyle = {};
+					let visible = this.visible;
+					let transIndex = index - this.basicData.currentPage;
+					transStyle["opacity"] = "0";
+					transStyle["zIndex"] = "-1";
+					transStyle["transform"] = "translate3D(0px,0px,"+ (-1 * visible * 60)+"px)";
+					transStyle["transitionTimingFunction"] = "ease";
+					transStyle["transitionDuration"] = 300 + "ms";
+
+					return transStyle
+				} else {
+
+					let transStyle = {};
+					let visible = this.visible;
+					let maxLength = this.imgs.length;
+					let transIndex = index - this.basicData.currentPage;
+
+					if (index <= this.basicData.currentPage + visible - 1){
+						transStyle["opacity"] = "1";
+						transStyle["z-index"] = visible - index + this.basicData.currentPage;
+						transStyle["transform"] = "translate3D(0px,0px,"+ (-1 * transIndex * 60)+"px)";
+						transStyle['transitionTimingFunction'] = 'ease';
+						transStyle['transitionDuration'] = 300 + 'ms';
+					}else {
+						transStyle["opacity"] = "0";
+						transStyle["z-index"] = "-1";
+						transStyle["transform"] = "translate3D(0px,0px,"+ (-1 * visible * 60)+"px)";
+					}
+
+					return transStyle
+
+				}
+			}
+		}
+
+	};
+
+
+	//imgList 显示的图片路径 格式--imgList:[ {src: "image/r1.jpg"} ]
+	//lodingImg 默认加载图片 格式-- lodingImg: "image/a1.png"
+	//showNum 显示的数量 格式-- showNum: 5
+	new Vue({
+		el: "#view",
+		data: function(){
+			return {
+				lodingImg: "image/a1.png",
+				imgList:[
+					{src: "image/a1.png"},
+					{src: "image/a2.png"},
+					{src: "image/a3.png"},
+					// {src: "image/r4.jpg"},
+					// {src: "image/r5.jpg"},
+					// {src: "image/r6.jpg"},
+					// {src: "image/r7.jpg"},
+					// {src: "image/r8.jpg"},
+					// {src: "image/r9.jpg"},
+					// {src: "image/r10.jpg"}
+				],
+				showNum: 3
+			}
+		},
+		components: {
+			"vue-slide": vueSlide
+		}
+	})
+</script>
+</body>
+</html>

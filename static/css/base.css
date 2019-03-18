@@ -1,2 +1,5 @@
 html,body,p{margin:0;padding:0}
 body{line-height:1.5;font-size:12px;font-family:"Microsoft Yahei", PingFangSC-Medium, sans-serif;color:#575962;background-color:#ccc}
+
+.at{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+.at2{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
