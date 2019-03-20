@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title><%= title %></title>
+<link href="http://127.0.0.1:3000/css/base.css" rel="stylesheet" />
+<style>
+  .A.fm{width:600px;margin:0 auto;background-color:#fff}
+  .A.fm h1{text-align:center;padding:10px 0}
+  .A.fm .box{padding-top:20px;border-top:1px solid #ebedf2}
+  .A.fm .e{position:relative;min-height:40px;font-size:14px;margin-bottom:20px;padding-left:200px}
+  .A.fm .label{position:absolute;width:180px;line-height:40px;text-align:right;top:0;left:0}
+  .A.fm .label em{position:absolute;font-style:normal;color:#f00;top:0;right:-5px}
+  .A.fm .val{line-height:40px}
+  .A.fm .ipt,.A.fm .select{width:340px;height:40px}
+  .A.fm .ipt .txt{float:left;width:100%;height:100%;text-indent:10px;box-sizing:border-box}
+  .A.fm .select select{float:left;width:100%;height:100%}
+  .A.fm .note{width:340px;font-size:12px;color:gray;padding-top:5px}
+  .A.fm .op{padding:30px;border-top:1px solid #ebedf2}
+  .A.fm .op .but{margin-right:10px}
+</style>
+</head>
+<body>
+
+<form method="post" action="/tool/ticket-add">
+  <div class="A fm">
+    <h1>创建工单</h1>
+    <div class="box">
+      <!-- <div class="e">
+        <label class="label">工单ID：</label>
+        <p class="val">2019031901</p>
+      </div> -->
+      <div class="e">
+        <label class="label">工单ID：<em>*</em></label>
+        <div class="ipt">
+          <input class="txt" type="text" name="time" placeholder="请填工单ID" />
+        </div>
+      </div>
+      <div class="e">
+        <label class="label">项目标题：<em>*</em></label>
+        <div class="ipt">
+          <input class="txt" type="text" name="title" placeholder="请填写项目需求标题" />
+        </div>
+      </div>
+      <div class="e">
+        <label class="label">版本号：</label>
+        <div class="ipt">
+          <input class="txt" type="text" name="edition" placeholder="如存在项目版本号，请填写" />
+        </div>
+      </div>
+      <div class="e">
+        <label class="label">产品人员：</label>
+        <div class="ipt">
+          <input class="txt" type="text" name="producter" placeholder="请填写产品人员名，人名已分号分割" />
+        </div>
+      </div>
+      <div class="e">
+        <label class="label">开发人员：</label>
+        <div class="ipt">
+          <input class="txt" type="text" name="developer" placeholder="请填写开发人员名，人名已分号分割" />
+        </div>
+      </div>
+      <div class="e">
+        <label class="label">需求归类：</label>
+        <div class="select">
+           <select name="team">
+             <option value="0">请选择需求归类</option>
+             <% for(var i=0,j=team.length;i<j;i++){ %>
+               <option value="<%= team[i].name %>"><%= team[i].name %></option>
+             <% } %>
+           </select>
+        </div>
+      </div>
+      <div class="e">
+        <label class="label">需求状态：</label>
+        <div class="select">
+           <select name="status">
+             <option value="0">创建</option>
+             <option value="1">下发</option>
+             <option value="2">开发中</option>
+             <option value="3">延期</option>
+             <option value="8">需求调整</option>
+             <option value="9">完成</option>
+           </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="op">
+      <input class="but but-success" type="submit" value="提交" /><input class="but but-danger" type="reset" value="重置" />
+    </div>
+
+    <div class="box">
+      <div class="e">
+        <label class="label">需求接收时间：<em>*</em></label>
+        <div class="ipt">
+          <input class="txt" type="text" placeholder="接收需求时间，已第一封邮件为准" />
+        </div>
+      </div>
+      <div class="e">
+        <label class="label">需求下发时间：</label>
+        <div class="ipt">
+          <input class="txt" type="text" placeholder="前端任务开始安排时间" />
+        </div>
+      </div>
+      <div class="e">
+        <label class="label">需求开发起始：</label>
+        <div class="ipt">
+          <input class="txt" type="text" placeholder="前端开发起始时间" />
+        </div>
+      </div>
+      <div class="e">
+        <label class="label">预估时间：</label>
+        <div class="ipt">
+          <input class="txt" type="text" placeholder="预计完成时间" />
+        </div>
+      </div>
+      <div class="e">
+        <input class="but but-secondary" type="button" value="添加延期" />
+      </div>
+      <div class="e">
+        <label class="label">延期完成时间-1：</label>
+        <div class="ipt">
+          <input class="txt" type="text" placeholder="" />
+        </div>
+      </div>
+      <div class="e">
+        <label class="label">完成时间：</label>
+        <div class="ipt">
+          <input class="txt" type="text" placeholder="" />
+        </div>
+      </div>
+      <div class="e">
+        <input class="but but-secondary" type="button" value="添加项目调整" />
+      </div>
+    </div>
+
+
+  </div>
+</form>
+
+  <script src="http://127.0.0.1:3000/js/fun.js"></script>
+  <script>
+    function submit() {
+
+    }
+  </script>
+
+</body>
+</html>

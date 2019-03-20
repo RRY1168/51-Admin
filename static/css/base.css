@@ -1,5 +1,16 @@
-html,body,p{margin:0;padding:0}
+html,body,p,h1,h2,h3,h4,h5,h6{margin:0;padding:0}
 body{line-height:1.5;font-size:12px;font-family:"Microsoft Yahei", PingFangSC-Medium, sans-serif;color:#575962;background-color:#ccc}
+
+input[type="text"],input[type="password"]{font-size:14px;font-family:"Microsoft Yahei", PingFangSC-Medium, sans-serif;color:#000}
 
 .at{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
 .at2{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+
+.but{min-width:100px;height:40px;font-size:14px;color:#fff;cursor:pointer;padding:0 10px;border:0 none;border-radius:3px}
+.but.but-default{background-color:#282a3c}
+.but.but-primary{background-color:#177dff}
+.but.but-secondary{background-color:#716aca}
+.but.but-info{background-color:#05b4d8}
+.but.but-success{background-color:#35cd3a}
+.but.but-warning{background-color:#ffa534}
+.but.but-danger{background-color:#f3545d}

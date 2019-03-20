@@ -37,7 +37,11 @@ let query = function(sql, values) {
 
 let select = function(_table, _key = '*') {
   let _sql = `select ${_key} from ${_table}`
-  return query(_sql, [_key, _table])
+  return query(_sql)
+}
+
+let insert = function() {
+
 }
 
 // let leftJoin = function(_table1, _table2 _key = '*') {
