@@ -1,0 +1,4 @@
+.A.table{margin-bottom:20px;padding:20px;background-color:#fff}
+.A.table table{width:100%;font-size:14px}
+.A.table th,.A.table td{text-align:left;padding:12px;border:2px solid #fff}
+.A.table tr:nth-of-type(2n){background-color:#f2f2f2}

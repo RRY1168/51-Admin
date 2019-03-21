@@ -1,7 +1,20 @@
-html,body,p,h1,h2,h3,h4,h5,h6{margin:0;padding:0}
-body{line-height:1.5;font-size:12px;font-family:"Microsoft Yahei", PingFangSC-Medium, sans-serif;color:#575962;background-color:#ccc}
+html,body,p,ul,li,th,td,h1,h2,h3,h4,h5,h6{margin:0;padding:0}
+html,body{position:relative;height:100%}
+table{border-collapse:collapse;border-spacing:0;box-sizing:border-box}
+li{list-style:none}
+a{text-decoration:none}
+body{line-height:1.5;font-size:12px;font-family:"Microsoft Yahei", PingFangSC-Medium, sans-serif;color:#575962;background-color:#f7f7f7}
 
 input[type="text"],input[type="password"]{font-size:14px;font-family:"Microsoft Yahei", PingFangSC-Medium, sans-serif;color:#000}
+
+#wrapper{position:relative;height:100%;padding:70px 0 0 240px;box-sizing:border-box}
+#nav{position:fixed;width:240px;height:100%;top:0;left:0;background-color:#fff}
+#nav .title{line-height:69px;font-weight:bold;font-size:26px;text-align:center;margin:0 20px;border-bottom:1px solid #ebedf2}
+#nav li{line-height:42px;color:575962;font-size:14px;text-indent:50px;cursor:pointer}
+#nav li:hover{text-indent:45px;background-color:#f2f2f2;border-left:5px solid #177dff}
+#nav li a{display:block;color:#575962}
+#bar{position:fixed;width:100%;height:40px;top:0;padding:15px 0;background-color:#177dff;z-index:9}
+#content{position:relative;padding:20px;z-index:1}
 
 .at{white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
 .at2{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}

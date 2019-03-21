@@ -1,0 +1,21 @@
+<div class="A card">
+  <% data.forEach(function(val) { %>
+    <div class="e">
+      <div class="img">
+        <img src="http://127.0.0.1:3000/file/<%= val.filename %>/index.png" alt="" />
+        <p class="month m_<%= val.month %>"><%= val.month %></p>
+      </div>
+      <div class="info">
+        <img src="http://127.0.0.1:3000/uimg/<%= val.uid %>.jpg" alt="" />
+        <p class="name"><%= val.name %></p>
+        <p class="time">最后编辑于：<%= val._time %></p>
+      </div>
+      <div class="text">
+        <p class="utitle"><%= val.post %></p>
+        <p class="tname at"><%= val.title %></p>
+        <p class="tmsg at2"><%= val.description %><%= val.description %></p>
+        <a class="link" target="_blank" href="/file/<%= val.filename %>/index.html">查看更多</a>
+      </div>
+    </div>
+  <% }) %>
+</div>
