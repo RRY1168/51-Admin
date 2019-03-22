@@ -26,9 +26,11 @@
     </div>
 
     <div id="content">
-      <% for(i in comp) { %>
-        <% options = comp.data || '' %>
-        <%- include('component/'+comp[i].name, {data: options}); %>
+      <% if(typeof comp !== 'undefined') { %>
+        <% for(i in comp) { %>
+          <% options = comp[i].data || '' %>
+          <%- include('component/'+comp[i].name, {data: options}); %>
+        <% } %>
       <% } %>
     </div>
   </div>

@@ -1,0 +1,20 @@
+body{background-color:#2a2b30}
+button{cursor:pointer}
+.menu{position:relative;width:300px;height:200px;margin:0 auto 70px;
+    -webkit-transform:translateZ(0);-moz-transform:translateZ(0);-o-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}
+.menu-wrapper{position:absolute;bottom:10px;left:50%}
+.menu-items{position:absolute;top:0;left:0;list-style-type:none;margin:0;padding:0}
+.menu-item{position:absolute;top:0;left:0;width:0;height:0}
+.menu-toggle-icon{position:absolute;top:0;left:0;width:80px;height:80px;line-height:80px;font-size:30px}
+.menu-toggle-button,.menu-item-bounce,.menu-item-button{position:relative;width:80px;height:80px;height:80px;color:#fff;outline:0;margin:-40px 0 0 -40px;border:none;background-color:#4f4f64;
+    -webkit-border-radius:50%;-moz-border-radius:50%;-o-border-radius:50%;-ms-border-radius:50%;border-radius:50%}
+.menu-toggle-button{position:absolute;top:0;left:0;background-color:transparent}
+.menu-item-bounce{position:absolute;top:0;left:0}
+.menu-item-button{position:absolute;top:0;left:0;margin-top:-30px;margin-left:-30px;width:60px;height:60px;color:#AD4C4C}
+.menu-item-button .iconfont{display:inline-block;font-size:1.5rem;color:#fff}
+.menu-item-button .icon-share{
+    -webkit-transform:rotate(180deg);-moz-transform:rotate(180deg);-o-transform:rotate(180deg);-ms-transform:rotate(180deg);transform:rotate(180deg)}
+.menu-item-button .icon-cart{
+    -webkit-transform:rotate(-120deg);-moz-transform:rotate(-120deg);-o-transform:rotate(-120deg);-ms-transform:rotate(-120deg);transform:rotate(-120deg)}
+.menu-item-button .icon-favorite{
+    -webkit-transform:rotate(120deg);-moz-transform:rotate(120deg);-o-transform:rotate(120deg);-ms-transform:rotate(120deg);transform:rotate(120deg)}

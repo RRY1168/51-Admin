@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+    <h3>按钮一</h3>
+	<style>
+        .button{position:relative;appearance:none;background:#f72359;padding:1em 2em;border:none;color:#fff;font-size:1.2em;cursor:pointer;outline:0;overflow:hidden;border-radius:100px}
+        .button span{position:relative}
+        .button::before{--size:0;content:'';position:absolute;left:var(--x);top:var(--y);width:var(--size);height:var(--size);background:radial-gradient(circle closest-side,#4405f7,transparent);transform:translate(-50%,-50%);transition:width .2s ease,height .2s ease}
+        .button:hover::before{--size:400px}
+	</style>
+	<button href="#" class="button"><span>hover一下试试</span></button>
+	<script>
+        document.querySelector('.button').onmousemove = (e) => {
+
+        const x = e.pageX - e.target.offsetLeft
+        const y = e.pageY - e.target.offsetTop
+
+        e.target.style.setProperty('--x', `${ x }px`)
+        e.target.style.setProperty('--y', `${ y }px`)
+
+        }
+	</script>
+    <h3>按钮二</h3>
+    <style>
+        .button2{position:relative;width:200px;height:60px}
+        .button2::before{position:absolute;bottom:0;left:0;width:200px;height:2px;background:#ff1493;content:"";transition:transform .5s;transform:scaleX(0);transform-origin:100% 0}
+        .button2:hover::before{transform:scaleX(1);transform-origin:0 0}
+    </style>
+    <div class="button2"><span>hover一下试试</span></div>
+    <h3>按钮三：</h3>
+    <style>
+        .button3{position:relative;width:200px;height:60px}
+        .button3::before{position:absolute;bottom:0;left:0;width:0;height:2px;background:#ff1493;content:"";transition:all .5s}
+        .button3:hover::before{width:200px}
+    </style>
+    <div class="button3"><span>hover一下试试</span></div>
+    <h3>按钮四：hover一下试试</h3>
+    <style>
+        .button4 .path1,.button4 .path2{transition: all .5s}
+        .button4 .path1{d: path('M55.075403,16.1988824 C52.2968386,13.420318 47.7918957,13.420318 45.0133313,16.1988824 L30.7485056,30.4637081 C29.4141919,31.7980218 28.6645823,33.6077395 28.6645823,35.4947439 C28.6645823,39.4242273 31.850058,42.609703 35.7795414,42.609703 L64.3091929,42.609703 C66.1961973,42.609703 68.005915,41.8600934 69.3402287,40.5257798 C72.1187931,37.7472154 72.1187931,33.2422725 69.3402287,30.4637081 L55.075403,16.1988824 Z M60.1064388,11.1678466 L74.3712645,25.4326723 C79.9283933,30.989801 79.9283933,39.9996869 74.3712645,45.5568156 C71.7026372,48.2254429 68.0832018,49.7246622 64.3091929,49.7246622 L35.7795414,49.7246622 C27.9205746,49.7246622 21.5496232,43.3537108 21.5496232,35.4947439 C21.5496232,31.720735 23.0488424,28.1012996 25.7174698,25.4326723 L39.9822955,11.1678466 C45.5394242,5.61071782 54.5493101,5.61071782 60.1064388,11.1678466 Z')}
+        .button4 .path2{d: path('M54.9706806,32.7655462 C52.1921162,29.9869818 47.6871733,29.9869818 44.9086089,32.7655462 L24.7844655,52.8896895 C22.0059012,55.6682539 22.0059012,60.1731968 24.7844655,62.9517612 L44.9086089,83.0759046 C47.6871733,85.8544689 52.1921162,85.8544689 54.9706806,83.0759046 L75.0948239,62.9517612 C77.8733883,60.1731968 77.8733883,55.6682539 75.0948239,52.8896895 L54.9706806,32.7655462 Z M60.0017164,27.7345103 L80.1258598,47.8586537 C85.6829885,53.4157824 85.6829885,62.4256683 80.1258598,67.9827971 L60.0017164,88.1069404 C54.4445877,93.6640691 45.4347018,93.6640691 39.8775731,88.1069404 L19.7534297,67.9827971 C14.196301,62.4256683 14.196301,53.4157824 19.7534297,47.8586537 L39.8775731,27.7345103 C45.4347018,22.1773816 54.4445877,22.1773816 60.0017164,27.7345103 Z');fill:#6A86A2}
+        .button4 svg:hover{opacity:1}
+        .button4 svg:hover .path1{d: path('M60.1064388,11.1678466 L74.3712645,25.4326723 C79.9283933,30.989801 79.9283933,39.9996869 74.3712645,45.5568156 C71.7026372,48.2254429 68.0832018,49.7246622 64.3091929,49.7246622 L35.7795414,49.7246622 C27.9205746,49.7246622 21.5496232,43.3537108 21.5496232,35.4947439 C21.5496232,31.720735 23.0488424,28.1012996 25.7174698,25.4326723 L39.9822955,11.1678466 C45.5394242,5.61071782 54.5493101,5.61071782 60.1064388,11.1678466 Z')}
+        .button4 svg:hover .path2{d: path('M60.0017164,27.7345103 L80.1258598,47.8586537 C85.6829885,53.4157824 85.6829885,62.4256683 80.1258598,67.9827971 L60.0017164,88.1069404 C54.4445877,93.6640691 45.4347018,93.6640691 39.8775731,88.1069404 L19.7534297,67.9827971 C14.196301,62.4256683 14.196301,53.4157824 19.7534297,47.8586537 L39.8775731,27.7345103 C45.4347018,22.1773816 54.4445877,22.1773816 60.0017164,27.7345103 Z');fill:#274666}
+    </style>
+    <div class="button4">
+        <svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" opacity="0.5">
+            <g>
+                <path class="path1" fill="#6A86A2" transform="translate(50.044367, 28.362331) scale(1, -1) translate(-50.044367, -28.362331) "></path>
+                <path class="path2"></path>
+            </g>
+        </svg>
+    </div>
+    <h3>按钮五:点击一下试试</h3>
+    <style>
+    .button5 .left,.button5 .right{fill:#FFF;transition:all .5s}
+    .button5 .left{d:path('M0 1 0 49 22 38.183075 22 11.8525238Z')}
+    .button5 .right{d:path('M44.096035 24.8759317 44.096035 24.8759317 22 37.6656866 22 12.2530012Z')}
+    .button5 .status {display:none}
+    .button5 .status:checked+svg .left{d:path('M0 1 0 49 10 49 10 1Z')}
+    .button5 .status:checked+svg .right{d:path('M35 0 35 50 25 50 25 0Z')}
+    </style>
+    <div class="button5">
+        <label>
+            <input type="checkbox" class="status">
+            <svg width="108px" height="108px" viewBox="-37 -29 108 108" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <circle stroke="none" fill="#F6A623" cx="17" cy="25" r="54"></circle>
+                <path class="left"></path>
+                <path class="right"></path>
+            </svg>
+        </label>
+    </div>
+</body>
+</html>

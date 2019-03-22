@@ -4,6 +4,7 @@ const page = require('../controller/page')
 // const form = require('../controller/form')
 
 const routers = router
-  .get('/demo', page.list)
+  .get('/demo', page.demo)
+  .get('/list', page.list)
 
 module.exports = routers
